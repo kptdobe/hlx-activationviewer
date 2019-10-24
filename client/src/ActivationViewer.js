@@ -43,7 +43,15 @@ class ActivationViewer extends React.Component {
 
         fetch(`/coralogix/${this.state.id}`)
             .then(response => response.json())
-            .then(json => this.setState({ coralogix: json.hits.hits }));
+            .then(json => {
+                if (json.hits) {
+                    this.setState({ coralogix: json.hits.hits })
+                }
+
+                if (json.error) {
+                    this.setState({ coralogix: [ json.error ] });
+                }
+            });
     };
 
     render() {
