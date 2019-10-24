@@ -1,0 +1,7 @@
+#ActivationViewer .search input[type=text] {
+  width: 400px;
+}
+
+#ActivationViewer ul {
+  list-style-type: none;
+}
