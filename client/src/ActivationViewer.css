@@ -5,3 +5,7 @@
 #ActivationViewer ul {
   list-style-type: none;
 }
+
+#ActivationView .row {
+  margin-top: 15px;
+}

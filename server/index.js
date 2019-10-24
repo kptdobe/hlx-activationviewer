@@ -67,16 +67,59 @@ app.get('/coralogix/:id', async (req, res) => {
             body: {
                 "size": 10,
                 "query": {
-                "bool": {
-                  "must": [
-                    {
-                                "term": {
-                                    "ow.activationId": id
+                    "bool": {
+                        "must": [{
+                            "term": {
+                                "ow.activationId": id
+                            }
+                        }]
+                    }
+                }
+            },
+            json: true
+        });
+        res.send(coralogix);
+    } catch(error) {
+        res.send({
+            error: error.message
+        });
+    }
+});
+
+app.get('/dispatchTrace', async (req, res) => {
+    const path = req.query.path;
+    const host = req.query.host;
+    
+    try {
+        const coralogix = await request({
+            method: 'POST',
+            uri: 'https://coralogix-esapi.coralogix.com:9443/*/_search',
+            headers: {
+                'Content-type': 'application/json',
+                'token': process.env.CORALOGIX_TOKEN
+            },
+            body: {
+                "size": 10,
+                "query": {
+                    "bool": {
+                        "filter":
+                        [
+                            {
+                                "query_string": {
+                                    "query": `actionOptions.params.__ow_headers.x-old-url:\"${path}\" AND actionOptions.params.__ow_headers.x-forwarded-host:\"${host}\"`
+                                }
+                            },
+                            {
+                                "range": {
+                                    "coralogix.timestamp": {
+                                        "gte": "now-24h",
+                                        "lt": "now"
+                                    }
                                 }
                             }
-                  ]
+                        ]
+                    }
                 }
-              }
             },
             json: true
         });

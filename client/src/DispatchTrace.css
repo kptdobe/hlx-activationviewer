@@ -1,0 +1,11 @@
+#DispatchTrace .search input[type=text] {
+  width: 400px;
+}
+
+#DispatchTrace ul {
+  list-style-type: none;
+}
+
+#DispatchTrace .row {
+  margin-top: 15px;
+}
