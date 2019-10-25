@@ -1,5 +1,9 @@
+#DispatchTrace {
+  font-size: .8rem;
+}
+
 #DispatchTrace .search input[type=text] {
-  width: 400px;
+  width: 800px;
 }
 
 #DispatchTrace ul {

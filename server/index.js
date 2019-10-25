@@ -74,7 +74,10 @@ app.get('/coralogix/:id', async (req, res) => {
                             }
                         }]
                     }
-                }
+                },
+                "sort": [
+                    { "timestamp.keyword": "desc" }
+                ]
             },
             json: true
         });
